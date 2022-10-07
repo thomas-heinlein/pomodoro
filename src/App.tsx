@@ -3,15 +3,23 @@ import './App.css';
 import Countdown from "./Countdown";
 import StartStopButton from "./StartStopButton";
 
-function App() {
-    const [countdownInSeconds, setCountdownInSeconds] = useState(25 * 60);
+interface AppProps {
+    initialCountdownInSeconds?: number;
+}
+
+function App({initialCountdownInSeconds}: AppProps) {
+
+    const [countdownInSeconds, setCountdownInSeconds] = useState(
+        initialCountdownInSeconds ? initialCountdownInSeconds : 25 * 60
+    );
+
     const [active, toggleActive] = useState(false);
 
     useEffect(() => {
         let timer: any = null;
         if (active) {
             timer = setInterval(() => {
-                setCountdownInSeconds((countdownInSeconds) => countdownInSeconds - 1);
+                setCountdownInSeconds((countdownInSeconds) => decrementTimer(countdownInSeconds));
             }, 1000);
         } else {
             clearInterval(timer);
@@ -20,6 +28,12 @@ function App() {
         return () => clearInterval(timer);
     }, [countdownInSeconds, active]);
 
+    function decrementTimer(countdownInSeconds: number) {
+        if (countdownInSeconds > 0) {
+            return countdownInSeconds - 1;
+        }
+        return countdownInSeconds;
+    }
 
     return (
         <div className="App">

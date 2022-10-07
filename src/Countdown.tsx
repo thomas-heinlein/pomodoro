@@ -6,17 +6,29 @@ interface CountdownProps {
 
 export default function Countdown({countdownInSeconds}: CountdownProps) {
 
-    const getMinutes = () => {
-        return Math.floor(countdownInSeconds / 60);
+    const getMinutes = (): string => {
+        let minutes = Math.floor(countdownInSeconds / 60);
+        return appendZeroIfNecessary(minutes);
     }
 
-    const getSeconds = () => {
-        let seconds = countdownInSeconds - getMinutes() * 60;
-        if (seconds.toString().length === 1) {
-            return '0' + seconds;
+    const getSeconds = (): string => {
+        let seconds = countdownInSeconds - +getMinutes() * 60;
+        return appendZeroIfNecessary(seconds);
+    }
+
+    function appendZeroIfNecessary(time: number) {
+        if (time.toString().length === 1) {
+            return '0' + time;
         }
-        return seconds;
+        return time.toString();
     }
 
-    return <p>{getMinutes()}:{getSeconds()}</p>;
+    return <p>
+        {
+            getMinutes()
+                .toString()
+                .concat(':')
+                .concat(getSeconds())
+        }
+    </p>;
 }
