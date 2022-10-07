@@ -8,9 +8,12 @@ interface AppProps {
 }
 
 function App({initialCountdownInSeconds}: AppProps) {
+    const getInitialCountdownInSeconds = () => {
+        return initialCountdownInSeconds !== undefined ? initialCountdownInSeconds : 25 * 60;
+    }
 
     const [countdownInSeconds, setCountdownInSeconds] = useState(
-        initialCountdownInSeconds !== undefined ? initialCountdownInSeconds : 25 * 60
+        () => getInitialCountdownInSeconds()
     );
 
     const [active, toggleActive] = useState(false);
@@ -39,10 +42,16 @@ function App({initialCountdownInSeconds}: AppProps) {
         return countdownInSeconds === 0;
     }
 
+    const reset = () => {
+        setCountdownInSeconds(getInitialCountdownInSeconds());
+        toggleActive(false);
+    }
+
     return (
         <div className="App">
             <Countdown countdownInSeconds={countdownInSeconds}/>
             <StartStopButton toggleActive={toggleActive} active={active}/>
+            <button onClick={() => reset()}>Reset</button>
             {isDoneVisible() && <p>Done</p>}
         </div>
     );

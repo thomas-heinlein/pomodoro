@@ -47,7 +47,7 @@ describe('Countdown should', () => {
     };
 
     const clickStart = () => {
-        const startButton = screen.getByRole('button');
+        const startButton = screen.getByText('Start');
         fireEvent.click(startButton);
     };
 
