@@ -10,7 +10,7 @@ interface AppProps {
 function App({initialCountdownInSeconds}: AppProps) {
 
     const [countdownInSeconds, setCountdownInSeconds] = useState(
-        initialCountdownInSeconds ? initialCountdownInSeconds : 25 * 60
+        initialCountdownInSeconds !== undefined ? initialCountdownInSeconds : 25 * 60
     );
 
     const [active, toggleActive] = useState(false);
@@ -28,17 +28,22 @@ function App({initialCountdownInSeconds}: AppProps) {
         return () => clearInterval(timer);
     }, [countdownInSeconds, active]);
 
-    function decrementTimer(countdownInSeconds: number) {
+    const decrementTimer = (countdownInSeconds: number) => {
         if (countdownInSeconds > 0) {
             return countdownInSeconds - 1;
         }
         return countdownInSeconds;
     }
 
+    const isDoneVisible = () => {
+        return countdownInSeconds === 0;
+    }
+
     return (
         <div className="App">
             <Countdown countdownInSeconds={countdownInSeconds}/>
             <StartStopButton toggleActive={toggleActive} active={active}/>
+            {isDoneVisible() && <p>Done</p>}
         </div>
     );
 }
