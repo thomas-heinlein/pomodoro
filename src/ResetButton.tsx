@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '@mui/material/Button';
 
 interface ResetButtonProps {
     setCountdownInSeconds: (countdownInSeconds: number) => void;
@@ -12,5 +13,5 @@ export default function ResetButton(props: ResetButtonProps) {
         props.toggleActive(false);
     }
 
-    return <button onClick={() => reset()}>Reset</button>;
+    return <Button onClick={() => reset()}>Reset</Button>;
 }

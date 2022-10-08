@@ -4,6 +4,16 @@ import CountdownLabel from "./CountdownLabel";
 import StartStopButton from "./StartStopButton";
 import ResetButton from "./ResetButton";
 import DoneLabel from "./DoneLabel";
+import {ButtonGroup} from '@mui/material';
+import {ThemeProvider, createTheme} from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
+
 
 interface AppProps {
     initialCountdownInSeconds?: number;
@@ -41,19 +51,26 @@ function App({initialCountdownInSeconds}: AppProps) {
     }
 
     return (
-        <div className="App">
-            <CountdownLabel countdownInSeconds={countdownInSeconds}/>
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline/>
+            <div className="App">
+                <CountdownLabel countdownInSeconds={countdownInSeconds}/>
 
-            <StartStopButton toggleActive={toggleActive} active={active}/>
+                <ButtonGroup variant="text" aria-label="text button group">
 
-            <ResetButton
-                setCountdownInSeconds={setCountdownInSeconds}
-                getInitialCountdownInSeconds={getInitialCountdownInSeconds}
-                toggleActive={toggleActive}
-            />
+                    <StartStopButton toggleActive={toggleActive} active={active}/>
 
-            <DoneLabel countdownInSeconds={countdownInSeconds}/>
-        </div>
+                    <ResetButton
+                        setCountdownInSeconds={setCountdownInSeconds}
+                        getInitialCountdownInSeconds={getInitialCountdownInSeconds}
+                        toggleActive={toggleActive}
+                    />
+
+                </ButtonGroup>
+
+                <DoneLabel countdownInSeconds={countdownInSeconds}/>
+            </div>
+        </ThemeProvider>
     );
 }
 
