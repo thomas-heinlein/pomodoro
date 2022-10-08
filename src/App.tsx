@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import Countdown from "./Countdown";
+import CountdownLabel from "./CountdownLabel";
 import StartStopButton from "./StartStopButton";
+import ResetButton from "./ResetButton";
+import DoneLabel from "./DoneLabel";
 
 interface AppProps {
     initialCountdownInSeconds?: number;
@@ -38,21 +40,19 @@ function App({initialCountdownInSeconds}: AppProps) {
         return countdownInSeconds;
     }
 
-    const isDoneVisible = () => {
-        return countdownInSeconds === 0;
-    }
-
-    const reset = () => {
-        setCountdownInSeconds(getInitialCountdownInSeconds());
-        toggleActive(false);
-    }
-
     return (
         <div className="App">
-            <Countdown countdownInSeconds={countdownInSeconds}/>
+            <CountdownLabel countdownInSeconds={countdownInSeconds}/>
+
             <StartStopButton toggleActive={toggleActive} active={active}/>
-            <button onClick={() => reset()}>Reset</button>
-            {isDoneVisible() && <p>Done</p>}
+
+            <ResetButton
+                setCountdownInSeconds={setCountdownInSeconds}
+                getInitialCountdownInSeconds={getInitialCountdownInSeconds}
+                toggleActive={toggleActive}
+            />
+
+            <DoneLabel countdownInSeconds={countdownInSeconds}/>
         </div>
     );
 }

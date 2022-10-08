@@ -4,7 +4,7 @@ interface CountdownProps {
     countdownInSeconds: number;
 }
 
-export default function Countdown({countdownInSeconds}: CountdownProps) {
+export default function CountdownLabel({countdownInSeconds}: CountdownProps) {
 
     const getMinutes = (): string => {
         let minutes = Math.floor(countdownInSeconds / 60);

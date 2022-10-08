@@ -2,7 +2,7 @@ import React from 'react';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import App from '../App';
 
-describe('Countdown should', () => {
+describe('CountdownLabel should', () => {
 
     it('render 25 minutes label at the beginning', () => {
         render(<App/>);
