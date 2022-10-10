@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import CountdownLabel from "./CountdownLabel";
-import StartStopButton from "./StartStopButton";
-import ResetButton from "./ResetButton";
 import DoneLabel from "./DoneLabel";
-import {ButtonGroup} from '@mui/material';
-import {ThemeProvider, createTheme} from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import getFormattedTime from "./TimeFormatter";
+import StartStopResetButtonBar from "./StartStopResetButtonBar";
 
 const darkTheme = createTheme({
     palette: {
@@ -30,11 +29,15 @@ function App({initialCountdownInSeconds}: AppProps) {
 
     const [active, toggleActive] = useState(false);
 
+
     useEffect(() => {
         let timer: any = null;
+        document.title = getFormattedTime(countdownInSeconds);
         if (active) {
             timer = setInterval(() => {
-                setCountdownInSeconds((countdownInSeconds) => decrementTimer(countdownInSeconds));
+                const decrementedCountdownInSeconds = decrementTimer(countdownInSeconds);
+                setCountdownInSeconds((countdownInSeconds) => decrementedCountdownInSeconds);
+                document.title = getFormattedTime(decrementedCountdownInSeconds);
             }, 1000);
         } else {
             clearInterval(timer);
@@ -56,17 +59,11 @@ function App({initialCountdownInSeconds}: AppProps) {
             <div className="App">
                 <CountdownLabel countdownInSeconds={countdownInSeconds}/>
 
-                <ButtonGroup variant="text" aria-label="text button group">
-
-                    <StartStopButton toggleActive={toggleActive} active={active}/>
-
-                    <ResetButton
-                        setCountdownInSeconds={setCountdownInSeconds}
-                        getInitialCountdownInSeconds={getInitialCountdownInSeconds}
-                        toggleActive={toggleActive}
-                    />
-
-                </ButtonGroup>
+                <StartStopResetButtonBar getInitialCountdownInSeconds={getInitialCountdownInSeconds}
+                                         toggleActive={toggleActive}
+                                         active={active}
+                                         setCountdownInSeconds={setCountdownInSeconds}
+                />
 
                 <DoneLabel countdownInSeconds={countdownInSeconds}/>
             </div>

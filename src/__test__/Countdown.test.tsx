@@ -27,7 +27,7 @@ describe('CountdownLabel should', () => {
         });
     });
 
-    it('consider initial countdown value', () => {
+    it('consider custom initial countdown value', () => {
         render(<App initialCountdownInSeconds={2}/>);
         const countdown = screen.getByText('00:02');
         expect(countdown).toBeInTheDocument();
