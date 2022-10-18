@@ -48,7 +48,7 @@ export default function StartStopButton({
         setActive(false);
     };
 
-    return <Button onClick={onClick}>
+    return <Button size="large" onClick={onClick}>
         {active ? 'Stop' : 'Start'}
     </Button>;
 }

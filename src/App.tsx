@@ -8,9 +8,14 @@ import getFormattedTime from "./TimeFormatter";
 import StartStopResetButtonBar from "./StartStopResetButtonBar";
 import getTimeDifferenceInSeconds from "./TimeDifferenceInSecondsProvider";
 
-const darkTheme = createTheme({
+const theme = createTheme({
     palette: {
         mode: 'dark',
+    },
+    typography: {
+        fontFamily: [
+            'serif',
+        ].join(','),
     },
 });
 
@@ -22,6 +27,10 @@ interface AppProps {
 function App({initialCountdownInSeconds}: AppProps) {
     const getInitialCountdownInSeconds = () => {
         return initialCountdownInSeconds !== undefined ? initialCountdownInSeconds : 25 * 60;
+    }
+
+    const getCountdownInSeconds = () => {
+        return getInitialCountdownInSeconds() - getTotalOffsetInSeconds();
     }
 
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
@@ -47,11 +56,7 @@ function App({initialCountdownInSeconds}: AppProps) {
         }
 
         return () => clearInterval(timer);
-    }, [offsetInSeconds, startDate, stopDate, active]);
-
-    const getCountdownInSeconds = () => {
-        return getInitialCountdownInSeconds() - getTotalOffsetInSeconds();
-    }
+    }, [getCountdownInSeconds,offsetInSeconds, startDate, stopDate, active]);
 
     const getTotalOffsetInSeconds = () => {
         if (!startDate) {
@@ -67,7 +72,7 @@ function App({initialCountdownInSeconds}: AppProps) {
     };
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={theme}>
             <CssBaseline/>
             <div className="App">
                 <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>

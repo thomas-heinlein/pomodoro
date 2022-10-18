@@ -16,5 +16,5 @@ export default function ResetButton(props: ResetButtonProps) {
         props.setOffsetInSeconds(0);
     }
 
-    return <Button onClick={() => reset()}>Reset</Button>;
+    return <Button size="large" onClick={() => reset()}>Reset</Button>;
 }
