@@ -2,11 +2,11 @@ import React from "react";
 import getFormattedTime from "./TimeFormatter";
 
 interface CountdownProps {
-    countdownInSeconds: number;
+    getCountdownInSeconds: () => number;
 }
 
-export default function CountdownLabel({countdownInSeconds}: CountdownProps) {
+export default function CountdownLabel({getCountdownInSeconds}: CountdownProps) {
     return <p>
-        {getFormattedTime(countdownInSeconds)}
+        {getFormattedTime(getCountdownInSeconds())}
     </p>;
 }

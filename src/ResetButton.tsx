@@ -2,15 +2,18 @@ import React from "react";
 import Button from '@mui/material/Button';
 
 interface ResetButtonProps {
-    setCountdownInSeconds: (countdownInSeconds: number) => void;
-    getInitialCountdownInSeconds: () => number;
-    toggleActive: (active: boolean) => void;
+    setActive: (active: boolean) => void;
+    setStartDate: (startDate: Date | null) => void;
+    setStopDate: (startDate: Date | null) => void;
+    setOffsetInSeconds: (offset: number) => void;
 }
 
 export default function ResetButton(props: ResetButtonProps) {
     const reset = () => {
-        props.setCountdownInSeconds(props.getInitialCountdownInSeconds());
-        props.toggleActive(false);
+        props.setStartDate(null);
+        props.setStopDate(null);
+        props.setActive(false);
+        props.setOffsetInSeconds(0);
     }
 
     return <Button onClick={() => reset()}>Reset</Button>;

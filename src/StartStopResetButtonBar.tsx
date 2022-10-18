@@ -4,22 +4,36 @@ import ResetButton from "./ResetButton";
 import React from "react";
 
 interface StartStopResetButtonBarProps {
-    toggleActive: (active: boolean) => void;
+    startDate: Date | null;
+    stopDate: Date | null;
+    offsetInSeconds: number;
     active: boolean;
-    setCountdownInSeconds: (countDownInSeconds: number) => void;
-    getInitialCountdownInSeconds: () => number;
+    setActive: (active: boolean) => void;
+    setStartDate: (startDate: Date | null) => void;
+    setStopDate: (startDate: Date | null) => void;
+    setOffsetInSeconds: (offset: number) => void;
 }
 
 export default function StartStopResetButtonBar(props: StartStopResetButtonBarProps) {
     return (
         <ButtonGroup variant="text" aria-label="text button group">
 
-            <StartStopButton toggleActive={props.toggleActive} active={props.active}/>
+            <StartStopButton
+                startDate={props.startDate}
+                stopDate={props.stopDate}
+                offsetInSeconds={props.offsetInSeconds}
+                active={props.active}
+                setActive={props.setActive}
+                setStartDate={props.setStartDate}
+                setStopDate={props.setStopDate}
+                setOffsetInSeconds={props.setOffsetInSeconds}
+            />
 
             <ResetButton
-                setCountdownInSeconds={props.setCountdownInSeconds}
-                getInitialCountdownInSeconds={props.getInitialCountdownInSeconds}
-                toggleActive={props.toggleActive}
+                setActive={props.setActive}
+                setStartDate={props.setStartDate}
+                setStopDate={props.setStopDate}
+                setOffsetInSeconds={props.setOffsetInSeconds}
             />
 
         </ButtonGroup>

@@ -1,10 +1,10 @@
 interface DoneLabelProps {
-    countdownInSeconds: number;
+    getCountdownInSeconds: () => number;
 }
 
 export default function DoneLabel(props: DoneLabelProps) {
     const isDoneVisible = () => {
-        return props.countdownInSeconds === 0;
+        return props.getCountdownInSeconds() === 0;
     }
 
     return <div>{isDoneVisible() && <p>Done</p>}</div>;
