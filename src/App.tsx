@@ -1,12 +1,12 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import './App.css';
 import CountdownLabel from "./CountdownLabel";
-import DoneLabel from "./DoneLabel";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getFormattedTime from "./TimeFormatter";
 import StartStopResetButtonBar from "./StartStopResetButtonBar";
 import getTimeDifferenceInSeconds from "./TimeDifferenceInSecondsProvider";
+import {act} from "@testing-library/react";
 
 const theme = createTheme({
     palette: {
@@ -49,7 +49,9 @@ function App({initialCountdownInSeconds}: AppProps) {
         if (active) {
             timer = setInterval(() => {
                 document.title = getFormattedTime(getCountdownInSeconds());
-                forceUpdate();
+                act(() => {
+                    forceUpdate();
+                });
             }, 1000);
         } else {
             clearInterval(timer);
@@ -87,8 +89,6 @@ function App({initialCountdownInSeconds}: AppProps) {
                     setStopDate={setStopDate}
                     setOffsetInSeconds={setOffsetInSeconds}
                 />
-
-                <DoneLabel getCountdownInSeconds={getCountdownInSeconds}/>
             </div>
         </ThemeProvider>
     );
