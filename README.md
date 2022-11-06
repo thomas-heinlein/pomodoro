@@ -6,9 +6,11 @@ You can access an online version here: https://pomodoro.thomasheinlein.com
 
 ## Run in docker
 
-Start with `yarn start`.
+Install dependencies: `yarn install`
 
-Run tests via `yarn test`.
+Start: `yarn start`
+
+Run tests: `yarn test`
 
 ## Development notes
 

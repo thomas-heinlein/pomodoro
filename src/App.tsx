@@ -30,7 +30,7 @@ function App({initialCountdownInSeconds}: AppProps) {
     }
 
     const getCountdownInSeconds = () => {
-        return getInitialCountdownInSeconds() - getTotalOffsetInSeconds();
+        return Math.max(0, getInitialCountdownInSeconds() - getTotalOffsetInSeconds());
     }
 
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
@@ -56,7 +56,7 @@ function App({initialCountdownInSeconds}: AppProps) {
         }
 
         return () => clearInterval(timer);
-    }, [getCountdownInSeconds,offsetInSeconds, startDate, stopDate, active]);
+    }, [getCountdownInSeconds, offsetInSeconds, startDate, stopDate, active]);
 
     const getTotalOffsetInSeconds = () => {
         if (!startDate) {

@@ -37,9 +37,8 @@ describe('CountdownLabel should', () => {
         render(<App initialCountdownInSeconds={1}/>);
         const countdown = screen.getByText('00:01');
         clickStart();
-        waitAndExpect(3000, () => {
-            expect(countdown.textContent).toBe('00:00');
-        });
+        await new Promise((r) => setTimeout(r, 3000));
+        expect(countdown.textContent).toBe('00:00');
     });
 
     const getCountdown = () => {
