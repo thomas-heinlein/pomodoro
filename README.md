@@ -1,6 +1,6 @@
 # Pomodoro Timer
 
-A simple pomodoro timer. No pauses included - only decreases timer from 25:00.
+A simple pomodoro timer. No long pauses included. Pomodoro is set to 25 minutes and the break is set to 5 minutes.
 
 You can access an online version here: https://pomodoro.thomasheinlein.com
 
