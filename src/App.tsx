@@ -65,10 +65,10 @@ function App({initialCountdownInSeconds}: AppProps) {
             return 0;
         }
         if (active) {
-            return getTimeDifferenceInSeconds(startDate, new Date()) - offsetInSeconds;
+            return getTimeDifferenceInSeconds(startDate, new Date()) + offsetInSeconds;
         }
         if (startDate && stopDate) {
-            return getTimeDifferenceInSeconds(startDate, stopDate) - offsetInSeconds;
+            return getTimeDifferenceInSeconds(startDate, stopDate) + offsetInSeconds;
         }
         throw new Error(`State invalid\n active: ${active}\n startDate: ${startDate}\n stopDate: ${stopDate}`);
     };
@@ -77,8 +77,9 @@ function App({initialCountdownInSeconds}: AppProps) {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <div className="App">
-                <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>
-
+                <div className="noselect">
+                    <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>
+                </div>
                 <StartStopResetButtonBar
                     startDate={startDate}
                     stopDate={stopDate}

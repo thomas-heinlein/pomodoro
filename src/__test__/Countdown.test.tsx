@@ -19,6 +19,20 @@ describe('CountdownLabel should', () => {
         );
     });
 
+    it('is able to pause and restart', async () => {
+        render(<App/>);
+        const countdown = getCountdown();
+        clickStart();
+        await new Promise((r) => setTimeout(r, 1500));
+        clickStop();
+        await new Promise((r) => setTimeout(r, 4000));
+        clickStart();
+        await new Promise((r) => setTimeout(r, 1500));
+        await waitFor(() =>
+            expect(countdown.textContent).toBe('24:57'), {timeout: 2000}
+        );
+    }, 30000);
+
     it('not decrements timer if start button is not pushed', async () => {
         render(<App/>);
         const countdown = getCountdown();
@@ -47,6 +61,11 @@ describe('CountdownLabel should', () => {
 
     const clickStart = () => {
         const startButton = screen.getByText('Start');
+        fireEvent.click(startButton);
+    };
+
+    const clickStop = () => {
+        const startButton = screen.getByText('Stop');
         fireEvent.click(startButton);
     };
 
