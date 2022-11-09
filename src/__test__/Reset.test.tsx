@@ -11,7 +11,7 @@ describe('Reset Button should', () => {
     });
 
     it('be visible when countdown is 0', () => {
-        render(<App initialCountdownInSeconds={0}/>);
+        render(<App initialPomodoroCountdownInSeconds={0}/>);
         const resetButton = screen.getByText('Reset');
         expect(resetButton).toBeInTheDocument();
     });
@@ -45,7 +45,7 @@ describe('Reset Button should', () => {
     });
 
     it('reset countdown and start button to initially set value when clicked', async () => {
-        render(<App initialCountdownInSeconds={20}/>);
+        render(<App initialPomodoroCountdownInSeconds={20}/>);
 
         const countdown = screen.getByText('00:20');
         const resetButton = screen.getByText('Reset');
@@ -55,6 +55,13 @@ describe('Reset Button should', () => {
 
         expect(startButton.textContent).toBe('Start');
         expect(countdown.textContent).toBe('00:20');
+    });
+
+    it('start work mode on reset', () => {
+        render(<App startWithBreak={true}/>);
+        const resetButton = screen.getByText('Reset');
+        fireEvent.click(resetButton);
+        expect(screen.getByTestId('work-icon')).toBeInTheDocument();
     });
 
 });

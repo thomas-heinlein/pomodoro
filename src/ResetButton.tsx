@@ -6,6 +6,7 @@ interface ResetButtonProps {
     setStartDate: (startDate: Date | null) => void;
     setStopDate: (startDate: Date | null) => void;
     setOffsetInSeconds: (offset: number) => void;
+    setHavingBreak: (havingBreak: boolean) => void;
 }
 
 export default function ResetButton(props: ResetButtonProps) {
@@ -14,6 +15,7 @@ export default function ResetButton(props: ResetButtonProps) {
         props.setStopDate(null);
         props.setActive(false);
         props.setOffsetInSeconds(0);
+        props.setHavingBreak(false);
     }
 
     return <Button size="large" onClick={() => reset()}>Reset</Button>;

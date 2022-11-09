@@ -42,13 +42,13 @@ describe('CountdownLabel should', () => {
     });
 
     it('consider custom initial countdown value', () => {
-        render(<App initialCountdownInSeconds={2}/>);
+        render(<App initialPomodoroCountdownInSeconds={2}/>);
         const countdown = screen.getByText('00:02');
         expect(countdown).toBeInTheDocument();
     });
 
     it('stop decrementing timer at 0', async () => {
-        render(<App initialCountdownInSeconds={1}/>);
+        render(<App initialPomodoroCountdownInSeconds={1}/>);
         const countdown = screen.getByText('00:01');
         clickStart();
         await new Promise((r) => setTimeout(r, 3000));

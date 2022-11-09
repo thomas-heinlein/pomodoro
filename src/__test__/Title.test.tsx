@@ -18,12 +18,12 @@ describe("Document title should", () => {
     });
 
     it("consider custom initial countdown value in document title", () => {
-        render(<App initialCountdownInSeconds={5}/>);
+        render(<App initialPomodoroCountdownInSeconds={5}/>);
         expect(document.title).toBe('00:05');
     });
 
     it("stop decrementing countdown in document title when reaching 0", () => {
-        render(<App initialCountdownInSeconds={1}/>);
+        render(<App initialPomodoroCountdownInSeconds={1}/>);
 
         waitAndExpect(3000, () => {
             expect(document.title).toBe('00:00');

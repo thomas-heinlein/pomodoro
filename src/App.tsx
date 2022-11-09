@@ -5,6 +5,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getFormattedTime from "./TimeFormatter";
 import StartStopResetButtonBar from "./StartStopResetButtonBar";
+import StatusTransitionIcon from "./StatusTransitionIcon";
 import getTimeDifferenceInSeconds from "./TimeDifferenceInSecondsProvider";
 import {act} from "@testing-library/react";
 
@@ -21,16 +22,27 @@ const theme = createTheme({
 
 
 interface AppProps {
-    initialCountdownInSeconds?: number;
+    initialPomodoroCountdownInSeconds?: number;
+    initialBreakCountdownInSeconds?: number;
+    startWithBreak?: boolean;
 }
 
-function App({initialCountdownInSeconds}: AppProps) {
-    const getInitialCountdownInSeconds = () => {
-        return initialCountdownInSeconds !== undefined ? initialCountdownInSeconds : 25 * 60;
+function App({initialPomodoroCountdownInSeconds, initialBreakCountdownInSeconds, startWithBreak}: AppProps) {
+
+    const getInitialPomodoroCountdownInSeconds = () => {
+        return initialPomodoroCountdownInSeconds !== undefined ? initialPomodoroCountdownInSeconds : 25 * 60;
+    }
+
+    const getInitialBreakCountdownInSeconds = () => {
+        return initialBreakCountdownInSeconds !== undefined ? initialBreakCountdownInSeconds : 5 * 60;
+    }
+
+    const getRelevantInitialCountdownInSeconds = () => {
+        return havingBreak ? getInitialBreakCountdownInSeconds() : getInitialPomodoroCountdownInSeconds();
     }
 
     const getCountdownInSeconds = () => {
-        return Math.max(0, getInitialCountdownInSeconds() - getTotalOffsetInSeconds());
+        return Math.max(0, getRelevantInitialCountdownInSeconds() - getTotalOffsetInSeconds());
     }
 
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
@@ -42,6 +54,8 @@ function App({initialCountdownInSeconds}: AppProps) {
     const [offsetInSeconds, setOffsetInSeconds] = useState(0);
 
     const [active, setActive] = useState(false);
+
+    const [havingBreak, setHavingBreak] = useState(startWithBreak);
 
     useEffect(() => {
         let timer: any = null;
@@ -77,6 +91,8 @@ function App({initialCountdownInSeconds}: AppProps) {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <div className="App">
+                <StatusTransitionIcon getCountdownInSeconds={getCountdownInSeconds} havingBreak={havingBreak}
+                                      setHavingBreak={setHavingBreak}/>
                 <div className="noselect">
                     <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>
                 </div>
@@ -89,7 +105,10 @@ function App({initialCountdownInSeconds}: AppProps) {
                     setStartDate={setStartDate}
                     setStopDate={setStopDate}
                     setOffsetInSeconds={setOffsetInSeconds}
+                    getCountdownInSeconds={getCountdownInSeconds}
+                    setHavingBreak={setHavingBreak}
                 />
+                <br/>
             </div>
         </ThemeProvider>
     );
