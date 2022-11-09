@@ -1,12 +1,12 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import './App.css';
-import CountdownLabel from "./CountdownLabel";
+import CountdownLabel from "./components/CountdownLabel";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import getFormattedTime from "./TimeFormatter";
-import StartStopResetButtonBar from "./StartStopResetButtonBar";
-import StatusTransitionIcon from "./StatusTransitionIcon";
-import getTimeDifferenceInSeconds from "./TimeDifferenceInSecondsProvider";
+import getFormattedTime from "./components/TimeFormatter";
+import StartStopResetButtonBar from "./components/StartStopResetButtonBar";
+import StatusTransitionIcon from "./components/StatusTransitionIcon";
+import getTimeDifferenceInSeconds from "./components/TimeDifferenceInSecondsProvider";
 import {act} from "@testing-library/react";
 
 const theme = createTheme({
@@ -46,15 +46,10 @@ function App({initialPomodoroCountdownInSeconds, initialBreakCountdownInSeconds,
     }
 
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
-
     const [startDate, setStartDate] = useState<Date | null>(null);
-
     const [stopDate, setStopDate] = useState<Date | null>(null);
-
     const [offsetInSeconds, setOffsetInSeconds] = useState(0);
-
     const [active, setActive] = useState(false);
-
     const [havingBreak, setHavingBreak] = useState(startWithBreak);
 
     useEffect(() => {

@@ -3,6 +3,7 @@ import CoffeeIcon from "@mui/icons-material/CoffeeRounded";
 import LaptopIcon from "@mui/icons-material/LaptopMac";
 import ArrowIcon from '@mui/icons-material/ArrowRightAlt';
 import {IconButton} from "@mui/material";
+import {breakIconTestId, breakToWorkTestId, workIconTestId, workToBreakTestId} from "./TestId";
 
 interface StatusIconProps {
     getCountdownInSeconds: () => number;
@@ -42,12 +43,12 @@ export default function StatusTransitionIcon({
 
     return (
         <div>
-            {isBreakIconVisible() && <CoffeeIcon data-testid={'break-icon'} fontSize="large"/>}
-            {isWorkIconVisible() && <LaptopIcon data-testid={'work-icon'} fontSize="large"/>}
+            {isBreakIconVisible() && <CoffeeIcon data-testid={breakIconTestId} fontSize="large"/>}
+            {isWorkIconVisible() && <LaptopIcon data-testid={workIconTestId} fontSize="large"/>}
             {
                 isWorkToBreakTransitionVisible() &&
                 <IconButton color="primary" aria-label="upload picture" component="label"
-                            data-testid={"work-to-break-icon"} onClick={startBreak}>
+                            data-testid={workToBreakTestId} onClick={startBreak}>
                     <LaptopIcon fontSize="large"/><ArrowIcon fontSize="large"/><CoffeeIcon
                     fontSize="large"/>
                 </IconButton>
@@ -55,7 +56,7 @@ export default function StatusTransitionIcon({
             {
                 isBreakToWorkTransitionVisible() &&
                 <IconButton color="primary" aria-label="upload picture" component="label"
-                            data-testid={"break-to-work-icon"} onClick={startWork}>
+                            data-testid={breakToWorkTestId} onClick={startWork}>
                     <CoffeeIcon fontSize="large"/><ArrowIcon fontSize="large"/><LaptopIcon fontSize="large"/>
                 </IconButton>
             }

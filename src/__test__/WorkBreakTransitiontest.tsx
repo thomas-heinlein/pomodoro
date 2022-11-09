@@ -1,6 +1,7 @@
 import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react';
 import App from '../App';
+import {breakIconTestId, workIconTestId} from "../components/TestId";
 
 describe('WorkBreakTransition should', () => {
 
@@ -21,14 +22,14 @@ describe('WorkBreakTransition should', () => {
         render(<App initialPomodoroCountdownInSeconds={0}/>);
         const startBreakButton = screen.getByTestId('work-to-break-icon');
         fireEvent.click(startBreakButton);
-        expect(screen.getByTestId('break-icon')).toBeInTheDocument();
+        expect(screen.getByTestId(breakIconTestId)).toBeInTheDocument();
     });
 
     it('start work after clicking transition button', () => {
         render(<App startWithBreak={true} initialBreakCountdownInSeconds={0}/>);
         const startWorkButton = screen.getByTestId('break-to-work-icon');
         fireEvent.click(startWorkButton);
-        expect(screen.getByTestId('work-icon')).toBeInTheDocument();
+        expect(screen.getByTestId(workIconTestId)).toBeInTheDocument();
     });
 
 });

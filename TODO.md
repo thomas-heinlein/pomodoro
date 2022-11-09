@@ -2,6 +2,4 @@
   - option for custom time for pomodoro
   - option for custom time for break
   - save settings in cookie
-- Introduce breaks - default 5 minutes
 - Replace Start / Reset with icons
-- Create file with common properties like test ids
