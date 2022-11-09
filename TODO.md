@@ -3,4 +3,3 @@
   - option for custom time for break
   - save settings in cookie
 - Introduce breaks - default 5 minutes
-- Change icon
