@@ -5,9 +5,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getFormattedTime from "./components/TimeFormatter";
 import StartStopResetButtonBar from "./components/StartStopResetButtonBar";
-import StatusTransitionIcon from "./components/StatusTransitionIcon";
+import StatusIcon from "./components/StatusIcon";
 import getTimeDifferenceInSeconds from "./components/TimeDifferenceInSecondsProvider";
-import {act} from "@testing-library/react";
 
 const theme = createTheme({
     palette: {
@@ -57,10 +56,17 @@ function App({initialPomodoroCountdownInSeconds, initialBreakCountdownInSeconds,
         document.title = getFormattedTime(getCountdownInSeconds());
         if (active) {
             timer = setInterval(() => {
-                document.title = getFormattedTime(getCountdownInSeconds());
-                act(() => {
+                const countdownInSeconds = getCountdownInSeconds();
+                if (countdownInSeconds === 0) {
+                    setHavingBreak(!havingBreak);
+                    setStartDate(null);
+                    setStopDate(null);
+                    setOffsetInSeconds(0);
+                    setActive(false);
+                } else {
+                    document.title = getFormattedTime(getCountdownInSeconds());
                     forceUpdate();
-                });
+                }
             }, 1000);
         } else {
             clearInterval(timer);
@@ -86,10 +92,9 @@ function App({initialPomodoroCountdownInSeconds, initialBreakCountdownInSeconds,
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <div className="App">
-                <StatusTransitionIcon getCountdownInSeconds={getCountdownInSeconds} havingBreak={havingBreak}
-                                      setHavingBreak={setHavingBreak}/>
                 <div className="noselect">
                     <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>
+                    <StatusIcon getCountdownInSeconds={getCountdownInSeconds} havingBreak={havingBreak}/>
                 </div>
                 <StartStopResetButtonBar
                     startDate={startDate}

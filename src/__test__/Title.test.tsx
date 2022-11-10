@@ -22,11 +22,11 @@ describe("Document title should", () => {
         expect(document.title).toBe('00:05');
     });
 
-    it("stop decrementing countdown in document title when reaching 0", () => {
+    it("stop decrementing countdown in document title when reaching pause", () => {
         render(<App initialPomodoroCountdownInSeconds={1}/>);
 
         waitAndExpect(3000, () => {
-            expect(document.title).toBe('00:00');
+            expect(document.title).toBe('05:00');
         });
     });
 

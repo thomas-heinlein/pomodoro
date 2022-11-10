@@ -47,12 +47,12 @@ describe('CountdownLabel should', () => {
         expect(countdown).toBeInTheDocument();
     });
 
-    it('stop decrementing timer at 0', async () => {
+    it('stop decrementing timer after reaching pause', async () => {
         render(<App initialPomodoroCountdownInSeconds={1}/>);
         const countdown = screen.getByText('00:01');
         clickStart();
         await new Promise((r) => setTimeout(r, 3000));
-        expect(countdown.textContent).toBe('00:00');
+        expect(countdown.textContent).toBe('05:00');
     });
 
     const getCountdown = () => {
