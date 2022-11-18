@@ -1,1 +1,1 @@
-export const breakIconTestId = 'break-icon';
+export const breakIconTestId = "break-icon";
