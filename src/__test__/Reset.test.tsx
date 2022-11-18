@@ -1,7 +1,6 @@
 import React from 'react';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import App from '../App';
-import {workIconTestId} from "../components/TestId";
 
 describe('Reset Button should', () => {
 
@@ -62,7 +61,7 @@ describe('Reset Button should', () => {
         render(<App startWithBreak={true}/>);
         const resetButton = screen.getByText('Reset');
         fireEvent.click(resetButton);
-        expect(screen.getByTestId(workIconTestId)).toBeInTheDocument();
+        expect(screen.getByText('25:00')).toBeInTheDocument();
     });
 
 });

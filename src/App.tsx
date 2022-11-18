@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import getFormattedTime from "./components/TimeFormatter";
 import StartStopResetButtonBar from "./components/StartStopResetButtonBar";
-import StatusIcon from "./components/StatusIcon";
+import BreakIcon from "./components/BreakIcon";
 import getTimeDifferenceInSeconds from "./components/TimeDifferenceInSecondsProvider";
 
 const theme = createTheme({
@@ -94,7 +94,7 @@ function App({initialPomodoroCountdownInSeconds, initialBreakCountdownInSeconds,
             <div className="App">
                 <div className="noselect">
                     <CountdownLabel getCountdownInSeconds={getCountdownInSeconds}/>
-                    <StatusIcon getCountdownInSeconds={getCountdownInSeconds} havingBreak={havingBreak}/>
+                    <BreakIcon getCountdownInSeconds={getCountdownInSeconds} havingBreak={havingBreak}/>
                 </div>
                 <StartStopResetButtonBar
                     startDate={startDate}

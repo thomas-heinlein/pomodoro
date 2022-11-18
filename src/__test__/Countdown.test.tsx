@@ -1,6 +1,7 @@
 import React from 'react';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import App from '../App';
+import {wait} from "./TestUtil";
 
 describe('CountdownLabel should', () => {
 
@@ -23,11 +24,11 @@ describe('CountdownLabel should', () => {
         render(<App/>);
         const countdown = getCountdown();
         clickStart();
-        await new Promise((r) => setTimeout(r, 1500));
+        await wait(1500);
         clickStop();
-        await new Promise((r) => setTimeout(r, 4000));
+        await wait(4000);
         clickStart();
-        await new Promise((r) => setTimeout(r, 1500));
+        await wait(1500);
         await waitFor(() =>
             expect(countdown.textContent).toBe('24:57'), {timeout: 2000}
         );
@@ -51,7 +52,7 @@ describe('CountdownLabel should', () => {
         render(<App initialPomodoroCountdownInSeconds={1}/>);
         const countdown = screen.getByText('00:01');
         clickStart();
-        await new Promise((r) => setTimeout(r, 3000));
+        await wait(1500);
         expect(countdown.textContent).toBe('05:00');
     });
 
