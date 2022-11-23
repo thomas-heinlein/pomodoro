@@ -1,20 +1,19 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
+import { expectTextInDocument } from "./TestUtil";
 
 describe("Start/Stop button should", () => {
   it("render Start label initially", () => {
     render(<App />);
-    const startButton = screen.getByText("Start");
-    expect(startButton).toBeInTheDocument();
-    expect(startButton.textContent).toBe("Start");
+    expectTextInDocument("Start");
   });
 
   it("show Stop button label after clicking Start", () => {
     render(<App />);
     const startButton = screen.getByText("Start");
     fireEvent.click(startButton);
-    expect(startButton.textContent).toBe("Stop");
+    expectTextInDocument("Stop");
   });
 
   it("show Start button label after double clicking Start", () => {
@@ -22,6 +21,6 @@ describe("Start/Stop button should", () => {
     const startButton = screen.getByText("Start");
     fireEvent.click(startButton);
     fireEvent.click(startButton);
-    expect(startButton.textContent).toBe("Start");
+    expectTextInDocument("Start");
   });
 });

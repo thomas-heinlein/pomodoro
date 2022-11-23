@@ -2,4 +2,5 @@
   - option for custom time for pomodoro
   - option for custom time for break
   - save settings in cookie
-- Replace Start / Reset with icons
+- Replace button clicks with userEvent in tests
+- use useEffect to update document title

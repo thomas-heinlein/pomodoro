@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import CountdownLabel from "./components/CountdownLabel";
+import ConfigButton from "./components/ConfigButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import getFormattedTime from "./components/TimeFormatter";
@@ -28,28 +29,14 @@ function App({
   initialBreakCountdownInSeconds,
   startWithBreak,
 }: AppProps) {
-  const getInitialPomodoroCountdownInSeconds = () => {
-    return initialPomodoroCountdownInSeconds !== undefined
-      ? initialPomodoroCountdownInSeconds
-      : 25 * 60;
-  };
-
-  const getInitialBreakCountdownInSeconds = () => {
-    return initialBreakCountdownInSeconds !== undefined
-      ? initialBreakCountdownInSeconds
-      : 5 * 60;
-  };
-
-  const getRelevantInitialCountdownInSeconds = () => {
-    return havingBreak
-      ? getInitialBreakCountdownInSeconds()
-      : getInitialPomodoroCountdownInSeconds();
+  const getRelevantCountdownInSeconds = () => {
+    return havingBreak ? breakCountdownInSeconds : pomodoroCountdownInSeconds;
   };
 
   const getCountdownInSeconds = () => {
     return Math.max(
       0,
-      getRelevantInitialCountdownInSeconds() - getTotalOffsetInSeconds()
+      getRelevantCountdownInSeconds() - getTotalOffsetInSeconds()
     );
   };
 
@@ -59,6 +46,12 @@ function App({
   const [offsetInSeconds, setOffsetInSeconds] = useState(0);
   const [active, setActive] = useState(false);
   const [havingBreak, setHavingBreak] = useState(startWithBreak);
+  const [pomodoroCountdownInSeconds, setPomodoroCountdownInSeconds] = useState(
+    initialPomodoroCountdownInSeconds || 25 * 60
+  );
+  const [breakCountdownInSeconds, setBreakCountdownInSeconds] = useState(
+    initialBreakCountdownInSeconds || 5 * 60
+  );
 
   useEffect(() => {
     let timer: any = null;
@@ -106,6 +99,12 @@ function App({
       <CssBaseline />
       <div className="App">
         <div className="noselect">
+          <ConfigButton
+            setPomodoroCountdownInSeconds={setPomodoroCountdownInSeconds}
+            setBreakCountdownInSeconds={setBreakCountdownInSeconds}
+            pomodoroCountdownInSeconds={pomodoroCountdownInSeconds}
+            breakCountdownInSeconds={breakCountdownInSeconds}
+          />
           <CountdownLabel getCountdownInSeconds={getCountdownInSeconds} />
           <BreakIcon
             getCountdownInSeconds={getCountdownInSeconds}

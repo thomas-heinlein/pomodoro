@@ -1,18 +1,20 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
+import {
+  expectTextInDocument,
+  expectTextInDocumentWithTimeout,
+} from "./TestUtil";
 
 describe("Reset Button should", () => {
   it("be visible with default countdown", () => {
     render(<App />);
-    const resetButton = screen.getByText("Reset");
-    expect(resetButton).toBeInTheDocument();
+    expectTextInDocument("Reset");
   });
 
   it("be visible when countdown is 0", () => {
     render(<App initialPomodoroCountdownInSeconds={0} />);
-    const resetButton = screen.getByText("Reset");
-    expect(resetButton).toBeInTheDocument();
+    expectTextInDocument("Reset");
   });
 
   it("reset countdown and start button to default when clicked", async () => {
@@ -29,8 +31,8 @@ describe("Reset Button should", () => {
       "24:59"
     );
 
-    expect(startButton.textContent).toBe("Start");
-    expect(countdown.textContent).toBe("25:00");
+    await expectTextInDocument("Start");
+    await expectTextInDocument("25:00");
   });
 
   it("reset countdown and start button to initially set value when clicked", async () => {
@@ -47,15 +49,15 @@ describe("Reset Button should", () => {
       "00:19"
     );
 
-    expect(startButton.textContent).toBe("Start");
-    expect(countdown.textContent).toBe("00:20");
+    await expectTextInDocument("Start");
+    await expectTextInDocument("00:20");
   });
 
   it("start work mode on reset", () => {
     render(<App startWithBreak={true} />);
     const resetButton = screen.getByText("Reset");
     fireEvent.click(resetButton);
-    expect(screen.getByText("25:00")).toBeInTheDocument();
+    expectTextInDocument("25:00");
   });
 
   async function clickStartWaitAndClickReset(
@@ -65,12 +67,7 @@ describe("Reset Button should", () => {
     expectedCountdownTime: string
   ) {
     fireEvent.click(startButton);
-
-    await waitFor(
-      async () => expect(countdown.textContent).toBe(expectedCountdownTime),
-      { timeout: 1500 }
-    );
-
+    await expectTextInDocumentWithTimeout(expectedCountdownTime, 1500);
     fireEvent.click(resetButton);
   }
 });
