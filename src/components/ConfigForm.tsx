@@ -2,6 +2,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   LinearProgress,
 } from "@mui/material";
 import {
@@ -15,6 +16,7 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-mui";
+import "../App.css";
 
 interface ConfigFormProps {
   setPomodoroCountdownInSeconds: (pomodoroCountdownInSeconds: number) => void;
@@ -63,9 +65,11 @@ export default function ConfigForm({
         >
           {({ submitForm, isSubmitting }) => (
             <>
+              <DialogTitle>Configuration</DialogTitle>
               <DialogContent>
                 <Form>
                   <Field
+                    className="configfield"
                     component={TextField}
                     name="pomodoroInMinutes"
                     type="number"
@@ -74,6 +78,7 @@ export default function ConfigForm({
                   />
                   <br />
                   <Field
+                    className="configfield"
                     component={TextField}
                     type="number"
                     label="Countdown break in minutes"

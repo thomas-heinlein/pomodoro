@@ -14,7 +14,7 @@ const theme = createTheme({
     mode: "dark",
   },
   typography: {
-    fontFamily: ["serif"].join(","),
+    fontFamily: ["Roboto", "sans-serif"].join(","),
   },
 });
 
