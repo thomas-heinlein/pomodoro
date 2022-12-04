@@ -6,3 +6,16 @@
 .configfield {
   margin-top: 1em !important;
 }
+
+@media only screen and (max-width: 700px) {
+  #configbutton {
+    top: 0;
+    left: 0;
+  }
+}
+
+#configbutton {
+  display: block;
+  position: fixed;
+  margin-left: 2em;
+}

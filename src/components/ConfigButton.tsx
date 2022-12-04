@@ -3,6 +3,7 @@ import { configButtonTestId } from "./TestId";
 import { IconButton } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ConfigForm from "./ConfigForm";
+import "../App.css";
 
 interface ConfigButtonProps {
   setPomodoroCountdownInSeconds: (pomodoroCountdownInSeconds: number) => void;
@@ -28,11 +29,7 @@ export default function ConfigButton({
       <IconButton
         data-testid={configButtonTestId}
         onClick={handleClickOpen}
-        sx={{
-          display: "block",
-          position: "fixed",
-          marginLeft: "2em",
-        }}
+        id="configbutton"
       >
         <SettingsIcon style={{ fontSize: 40 }} />
       </IconButton>
